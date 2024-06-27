@@ -1,0 +1,36 @@
+<div class="notification-form-container">
+  <h2>Enviar Notificação</h2>
+  <form (ngSubmit)="sendNotification()" #notificationForm="ngForm">
+    <div class="form-group">
+      <label for="assunto">Assunto</label>
+      <input type="text" id="assunto" name="assunto" [(ngModel)]="newNotification.assunto" required>
+    </div>
+    <div class="form-group">
+      <label for="destinatarioUsername">Destinatário</label>
+      <input type="text" id="destinatarioUsername" name="destinatarioUsername" [(ngModel)]="newNotification.destinatarioUsername" required>
+    </div>
+    <div class="form-group">
+      <label for="remetenteUsername">Remetente</label>
+      <input type="text" id="remetenteUsername" name="remetenteUsername" [(ngModel)]="newNotification.remetenteUsername" required>
+    </div>
+    <div class="form-group">
+      <label for="descricao">Descrição</label>
+      <textarea id="descricao" name="descricao" [(ngModel)]="newNotification.descricao" required></textarea>
+    </div>
+    <button type="submit" [disabled]="sendingMessage || !notificationForm.form.valid">Enviar</button>
+  </form>
+  <div *ngIf="sendingMessage" class="loading">Enviando...</div>
+</div>
+
+
+<ul>
+  <li *ngFor="let notification of notifications">
+    <strong>Assunto:</strong> {{ notification.assunto }} <br>
+    <strong>Destinatário:</strong> {{ notification.destinatarioUsername }} <br>
+    <strong>Remetente:</strong> {{ notification.remetenteUsername }} <br>
+    <strong>Descrição:</strong> {{ notification.descricao }} <br>
+    <strong>Criado em:</strong> {{ notification.createdAt | date:'medium' }} <br>
+    <strong>Atualizado em:</strong> {{ notification.updateAt | date:'medium' }} <br>
+    <strong>Email Enviado:</strong> {{ notification.emailEnviado ? 'Sim' : 'Não' }} <br>
+  </li>
+</ul>
